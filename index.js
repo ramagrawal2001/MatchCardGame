@@ -26,12 +26,12 @@ $(".pick-me").click(function(){
     if(oddEven===0){
         let id=$(this).attr('id');
         ii1=imageId.indexOf(id);
-        $(this).attr("src", "images/" +cImages[ii1]+ ".png");
         if(verify[ii1]===1){
             oddEven=0;
         }
         else{
             oddEven=1;
+            $(this).attr("src", "images/" +cImages[ii1]+ ".png");
         }
         visited.push(ii1);
     }
@@ -48,6 +48,8 @@ $(".pick-me").click(function(){
             visited.push(ii2);
             verify[ii1]=1;
             verify[ii2]=1;
+            $("#"+imageId[ii1]).attr("src", "images/done.jpg");
+            $("#"+imageId[ii2]).attr("src", "images/done.jpg");
         }
         else{
             $("#"+imageId[ii1]).attr("src", "images/pick-me.jpg");
