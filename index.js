@@ -46,11 +46,11 @@ $(".pick-me").click(function(){
         else if(cImages[ii1]===cImages[ii2] && !visited.includes(ii2)){
             $(this).attr("src", "images/" +cImages[ii2]+ ".png");
             play("correct");
+            totalOpened+=2;
+            visited.push(ii2);
+            verify[ii1]=1;
+            verify[ii2]=1;
             setTimeout(function(){ 
-                totalOpened+=2;
-                visited.push(ii2);
-                verify[ii1]=1;
-                verify[ii2]=1;
                 $("#"+imageId[ii1]).attr("src", "images/done.png");
                 $("#"+imageId[ii2]).attr("src", "images/done.png");
             }, 500);
@@ -70,7 +70,7 @@ $(".pick-me").click(function(){
         $(".cm").text("Current Moves: "+currentMoves);
         if(totalOpened===12){
             bestMoves=Math.min(bestMoves,currentMoves);
-            $(".bm").text("Best Moves: "+currentMoves);
+            $(".bm").text("Best Moves: "+bestMoves);
         }        
     }
 });
