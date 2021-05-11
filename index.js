@@ -41,19 +41,30 @@ $(".pick-me").click(function(){
         ii2 = imageId.indexOf(id);
         if(verify[ii2]===1){
             oddEven=1;
+            play("wrong");
         }
         else if(cImages[ii1]===cImages[ii2] && !visited.includes(ii2)){
             $(this).attr("src", "images/" +cImages[ii2]+ ".png");
-            totalOpened+=2;
-            visited.push(ii2);
-            verify[ii1]=1;
-            verify[ii2]=1;
-            $("#"+imageId[ii1]).attr("src", "images/done.jpg");
-            $("#"+imageId[ii2]).attr("src", "images/done.jpg");
+            play("correct");
+            setTimeout(function(){ 
+                totalOpened+=2;
+                visited.push(ii2);
+                verify[ii1]=1;
+                verify[ii2]=1;
+                $("#"+imageId[ii1]).attr("src", "images/done.png");
+                $("#"+imageId[ii2]).attr("src", "images/done.png");
+            }, 500);
         }
         else{
-            $("#"+imageId[ii1]).attr("src", "images/pick-me.jpg");
-            visited.pop();
+            $(this).attr("src", "images/" +cImages[ii2]+ ".png");
+            play("wrong");
+            setTimeout(function(){
+                $("#"+imageId[ii1]).attr("src", "images/pick-me.jpg");
+                $("#"+imageId[ii2]).attr("src", "images/pick-me.jpg");
+                visited.pop();
+            },500);
+            
+            
         }
         currentMoves++;
         $(".cm").text("Current Moves: "+currentMoves);
@@ -74,3 +85,8 @@ $(".reset-btn").click(function(){
         $(this).attr('src', 'images/pick-me.jpg');
   });
 });
+
+function play(tone){
+    const song = new Audio("music/" + tone + ".mp3");
+    song.play();
+}
